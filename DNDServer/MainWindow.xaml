@@ -3,10 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DNDServer"
+        xmlns:local="clr-namespace:DNDServer" xmlns:viewmodel="clr-namespace:DNDServer.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:CellViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel>
+        <ComboBox DockPanel.Dock="Top" SelectedItem="{Binding CurrentServiceName}" ItemsSource="{Binding Path=MapLayerNames}" />
+        <Canvas>
+            <ItemsControl ItemsSource="{Binding Cells}" IsHitTestVisible="True">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding HexagonGeometry}" Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" IsHitTestVisible="True"
+                            MouseEnter="Path_MouseEnter" 
+                            MouseLeave="Path_MouseLeave">
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Canvas>
+    </DockPanel>
 </Window>
